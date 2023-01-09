@@ -3,34 +3,34 @@ package pl.wsb.javaprojekt.dziennikocenbackend.api.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.wsb.javaprojekt.dziennikocenbackend.api.dto.ActorDTO;
-import pl.wsb.javaprojekt.dziennikocenbackend.api.mapper.ActorMapper;
-import pl.wsb.javaprojekt.dziennikocenbackend.model.Actor;
-import pl.wsb.javaprojekt.dziennikocenbackend.service.ActorService;
+import pl.wsb.javaprojekt.dziennikocenbackend.api.dto.UserDTO;
+import pl.wsb.javaprojekt.dziennikocenbackend.api.mapper.UserMapper;
+import pl.wsb.javaprojekt.dziennikocenbackend.model.User;
+import pl.wsb.javaprojekt.dziennikocenbackend.service.UserService;
 
 @CrossOrigin(origins = {"*"})
 @RestController
-@RequestMapping("/api/actor")
-public class RestActorController {
+@RequestMapping("/api/user")
+public class RestUserController {
 
-    private final ActorService actorService;
+    private final UserService userService;
 
-    private final ActorMapper actorMapper;
+    private final UserMapper userMapper;
 
-    public RestActorController(
-            ActorService actorService,
-            ActorMapper actorMapper
+    public RestUserController(
+            UserService userService,
+            UserMapper userMapper
     ) {
-        this.actorService = actorService;
-        this.actorMapper = actorMapper;
+        this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/")
-    public ResponseEntity<Iterable<ActorDTO>> index() {
+    public ResponseEntity<Iterable<UserDTO>> index() {
         try {
             return new ResponseEntity<>(
-                    actorMapper.map(
-                            actorService.listAll()
+                    userMapper.map(
+                            userService.listAll()
                     ),
                     HttpStatus.OK
             );
@@ -40,11 +40,11 @@ public class RestActorController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Void> createActor(@RequestBody ActorDTO actorDTO) {
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO userDTO) {
         try {
-            actorService.save(
-                    actorMapper.actorDTOToActor(
-                            actorDTO
+            userService.save(
+                    userMapper.userDTOToUser(
+                            userDTO
                     )
             );
             return new ResponseEntity<>(null, HttpStatus.CREATED);
@@ -54,24 +54,24 @@ public class RestActorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ActorDTO> updateActor(
+    public ResponseEntity<UserDTO> updateUser(
             @PathVariable("id") Integer id,
-            @RequestBody ActorDTO actorDTO
+            @RequestBody UserDTO userDTO
     ) {
         try {
-            Actor actorEntity = actorService.find(id);
-            if (actorEntity == null) {
+            User userEntity = userService.find(id);
+            if (userEntity == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            actorService.save(
-                    actorMapper.actorDTOToActor(
-                            actorDTO,
-                            actorEntity
+            userService.save(
+                    userMapper.userDTOToUser(
+                            userDTO,
+                            userEntity
                     )
             );
             return new ResponseEntity<>(
-                    actorMapper.actorToActorDTO(
-                            actorEntity
+                    userMapper.userToUserDTO(
+                            userEntity
                     ),
                     HttpStatus.OK
             );
@@ -81,17 +81,17 @@ public class RestActorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteActor(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
         try {
-            Actor actorEntity = actorService.find(id);
-            if (actorEntity == null) {
+            User userEntity = userService.find(id);
+            if (userEntity == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            actorService.delete(id);
+            userService.delete(id);
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    
 }

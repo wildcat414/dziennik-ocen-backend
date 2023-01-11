@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.wsb.javaprojekt.dziennikocenbackend.api.dto.SubjectDTO;
 import pl.wsb.javaprojekt.dziennikocenbackend.api.mapper.SubjectMapper;
 import pl.wsb.javaprojekt.dziennikocenbackend.model.Subject;
-import pl.wsb.javaprojekt.dziennikocenbackend.repository.SubjectRepository;
 import pl.wsb.javaprojekt.dziennikocenbackend.service.SubjectService;
 
 @CrossOrigin(origins = {"*"})

@@ -10,7 +10,7 @@ public class SubjectDTO {
     private String name;
 
     @JsonProperty
-    private String authorld;
+    private Integer authorId;
 
     public String getId() {
         return id;
@@ -28,12 +28,12 @@ public class SubjectDTO {
         this.name = name;
     }
 
-    public String getAuthorld() {
-        return authorld;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorld(String authorld) {
-        this.authorld = authorld;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
 }

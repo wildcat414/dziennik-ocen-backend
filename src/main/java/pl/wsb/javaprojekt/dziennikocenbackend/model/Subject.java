@@ -21,8 +21,9 @@ public class Subject {
 
     @Column(name = "name")
     private String name;
-    @Column(name = "authorld")
-    private Integer authorld;
+
+    @Column(name = "author_id")
+    private Integer authorId;
 
     public Integer getId() {
         return id;
@@ -56,11 +57,11 @@ public class Subject {
         this.name = name;
     }
 
-    public Integer getAuthorld() {
-        return authorld;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorld(String authorld) {
-        this.name = authorld;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 }

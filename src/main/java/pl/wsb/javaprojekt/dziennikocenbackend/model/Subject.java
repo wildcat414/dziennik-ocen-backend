@@ -11,6 +11,9 @@ public class Subject {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private User user;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", length = 19)
     private Date created;
@@ -22,8 +25,8 @@ public class Subject {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "author_id")
-    private Integer authorId;
+//    @Column(name = "author_id")
+//    private Integer authorId;
 
     public Integer getId() {
         return id;
@@ -57,11 +60,19 @@ public class Subject {
         this.name = name;
     }
 
-    public Integer getAuthorId() {
-        return authorId;
+//    public Integer getAuthorId() {
+//        return authorId;
+//    }
+//
+//    public void setAuthorId(Integer authorId) {
+//        this.authorId = authorId;
+//    }
+
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void assignUser(User user) {
+        this.user = user;
     }
 }

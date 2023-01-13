@@ -1,29 +1,41 @@
 package pl.wsb.javaprojekt.dziennikocenbackend.api.controller;
 
+import org.mapstruct.control.MappingControl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.wsb.javaprojekt.dziennikocenbackend.api.dto.SubjectDTO;
 import pl.wsb.javaprojekt.dziennikocenbackend.api.mapper.SubjectMapper;
 import pl.wsb.javaprojekt.dziennikocenbackend.model.Subject;
+import pl.wsb.javaprojekt.dziennikocenbackend.model.User;
+import pl.wsb.javaprojekt.dziennikocenbackend.repository.SubjectRepository;
+import pl.wsb.javaprojekt.dziennikocenbackend.repository.UserRepository;
 import pl.wsb.javaprojekt.dziennikocenbackend.service.SubjectService;
 
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/subject")
 
+
 public class RestSubjectController {
+
 
     private final SubjectService subjectService;
 
     private final SubjectMapper subjectMapper;
+    private final SubjectRepository subjectRepository;
+    private final UserRepository userRepository;
 
     public RestSubjectController(
             SubjectService subjectService,
-            SubjectMapper subjectMapper
-    ) {
+            SubjectMapper subjectMapper,
+            SubjectRepository subjectRepository,
+            UserRepository userRepository) {
         this.subjectService = subjectService;
         this.subjectMapper = subjectMapper;
+        this.subjectRepository = subjectRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
@@ -93,5 +105,16 @@ public class RestSubjectController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/{subjectID}/user/{userID}")
+    Subject assignUserToSubject(
+            @PathVariable Integer subjectID,
+            @PathVariable Integer userID
+    ){
+        Subject subject = subjectRepository.findById(subjectID).get();
+        User user = userRepository.findById(userID).get();
+        subject.assignUser(user);
+        return subjectRepository.save(subject);
     }
 }

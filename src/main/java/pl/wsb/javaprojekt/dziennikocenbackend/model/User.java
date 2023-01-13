@@ -1,9 +1,12 @@
 package pl.wsb.javaprojekt.dziennikocenbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.wsb.javaprojekt.dziennikocenbackend.enums.UserRoleType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -14,6 +17,9 @@ public class User {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<Subject> subjects = new HashSet<>();
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", length = 19)
     private Date created;
@@ -112,4 +118,7 @@ public class User {
         this.accessToken = accessToken;
     }
 
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
 }

@@ -22,7 +22,7 @@ public class Grade {
     @Column(name = "subjectId")
     private Integer subjectId;
 
-    @Column(name = "teacherid")
+    @Column(name = "teacherId")
     private Integer teacherId;
 
     @Column(name = "studentId")

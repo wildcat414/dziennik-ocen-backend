@@ -51,5 +51,11 @@ public class GradeDTO {
         this.teacherId = teacherId;
     }
 
+    public Integer getStudentId() {
+        return studentId;
+    }
 
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
 }

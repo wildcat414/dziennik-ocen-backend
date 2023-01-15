@@ -25,7 +25,6 @@ public class RestSubjectController {
 
     private final SubjectMapper subjectMapper;
     private final SubjectRepository subjectRepository;
-    private final UserRepository userRepository;
 
     public RestSubjectController(
             SubjectService subjectService,
@@ -35,7 +34,6 @@ public class RestSubjectController {
         this.subjectService = subjectService;
         this.subjectMapper = subjectMapper;
         this.subjectRepository = subjectRepository;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
@@ -107,14 +105,4 @@ public class RestSubjectController {
         }
     }
 
-    @PutMapping("/{subjectID}/user/{userID}")
-    Subject assignUserToSubject(
-            @PathVariable Integer subjectID,
-            @PathVariable Integer userID
-    ){
-        Subject subject = subjectRepository.findById(subjectID).get();
-        User user = userRepository.findById(userID).get();
-        subject.assignUser(user);
-        return subjectRepository.save(subject);
-    }
 }

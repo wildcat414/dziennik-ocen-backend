@@ -93,5 +93,26 @@ public class RestUserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/authentication")
+    public ResponseEntity<UserDTO> authenticateUser(@RequestBody LoginAndPassword params) {
+        try {
+            User user = userService.authentication(params.login, params.password);
+            if(user != null) {
+                return new ResponseEntity<>(
+                        userMapper.userToUserDTO(user), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public static class LoginAndPassword {
+        public String login;
+        public String password;
+    }
+
     
 }

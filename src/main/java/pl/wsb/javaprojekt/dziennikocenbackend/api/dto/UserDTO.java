@@ -23,6 +23,9 @@ public class UserDTO {
     @JsonProperty
     private String login;
 
+    @JsonProperty
+    private String passwordHash;
+
 
     public String getId() {
         return id;
@@ -70,5 +73,13 @@ public class UserDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
